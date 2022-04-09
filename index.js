@@ -4,6 +4,12 @@ const { default: axios } = require("axios");
 const { randomBytes } = require("crypto");
 const config = require("./config");
 
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+
 require("dotenv").config();
 
 client.on("ready", () => console.log(`Logged in as ${client.user.tag}.`));
@@ -48,9 +54,9 @@ client.on("interactionCreate", async (i) => {
               const but = new MessageButton()
                 .setCustomId("auth")
                 .setStyle("SUCCESS")
-                .setLabel("「私について」に貼りました");
-              uuid = `${randomBytes(4).toString("hex")}-${randomBytes(2).toString("hex")}-${randomBytes(2).toString("hex")}-${randomBytes(2).toString("hex")}-${randomBytes(6).toString("hex")}`;
-              am.edit({ content: "ユーザー名の確認ができました。\n次に、下のコード\n(`XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`形式)\nを、あなたのScratchプロフィールの、**私について**のどこかに貼り付けてください。\n貼り付けてから、下のボタンを押してください。", embeds: [{
+                .setLabel("プロジェクトに入力しました");
+              uuid = `${getRandomInt(984932532).toString()}`;
+              am.edit({ content: "ユーザー名の確認ができました。\n次に、下のコード\n(`XXXXXXXXX`形式)\nを、https://scratch.mit.edu/projects/673753313/ に入力してください。\n入力してから、下のボタンを押してください。", embeds: [{
                 description: `\`\`\`\n${uuid}\n\`\`\``
               }], components: [new MessageActionRow().addComponents(but)] });
               
@@ -71,11 +77,11 @@ client.on("interactionCreate", async (i) => {
           collector.on("collect", async (mci) => {
             await mci.deferReply();
             const { data } = await axios({
-              url: `https://api.scratch.mit.edu/users/${scratchName}?timestamp=${new Date().getTime()}`,
+              url: `https://clouddata.scratch.mit.edu/logs?projectid=673753313&limit=40&offset=0`,
               responseType: "json",
               method: "get"
             });
-            if (data.profile.bio.includes(uuid)) {
+            if (data.find(element => element.user === scratchName && element.value === uuid)) {
               mci.followUp("認証が完了しました！");
               for (const role of config.verifiedRoles) {
                 i.member.roles.add(role);
