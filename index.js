@@ -13,12 +13,10 @@ require("dotenv").config();
 
 client.on("ready", bot => {
   console.log(`Logged in as ${client.user.tag}.`);
-  bot.user.setActivity(`${client.ws.ping}ms | https://scratch.mit.edu/projects/673753313/`)
+  setTimeout(() => bot.user.setActivity(`${client.ws.ping}ms | https://scratch.mit.edu/projects/673753313/`), 5000);
 });
 
-setInterval(() => {
-  client.user.setActivity(`${client.ws.ping}ms | https://scratch.mit.edu/projects/673753313/`)
-},1000 * 60 * 5)
+setInterval(() => client.user.setActivity(`${client.ws.ping}ms | https://scratch.mit.edu/projects/673753313/`), 1000 * 60 * 5);
 
 client.on("messageCreate", (message) => {
   if (message.content === "!scratchauth" && message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
