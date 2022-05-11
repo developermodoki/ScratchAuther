@@ -13,11 +13,11 @@ require("dotenv").config();
 
 client.on("ready", bot => {
   console.log(`Logged in as ${client.user.tag}.`);
-  bot.user.setActivity(`${client.ws.ping} | https://scratch.mit.edu/projects/673753313/`)
+  bot.user.setActivity(`${client.ws.ping}ms | https://scratch.mit.edu/projects/673753313/`)
 });
 
 setInterval(() => {
-  client.user.setActivity(`${client.ws.ping} | https://scratch.mit.edu/projects/673753313/`)
+  client.user.setActivity(`${client.ws.ping}ms | https://scratch.mit.edu/projects/673753313/`)
 },1000 * 60 * 5)
 
 client.on("messageCreate", (message) => {
