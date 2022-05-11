@@ -4,15 +4,21 @@ const { default: axios } = require("axios");
 const { randomBytes } = require("crypto");
 const config = require("./config");
 
-
+// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-
 require("dotenv").config();
 
-client.on("ready", () => console.log(`Logged in as ${client.user.tag}.`));
+client.on("ready", bot => {
+  console.log(`Logged in as ${client.user.tag}.`);
+  bot.user.setActivity(`${client.ws.ping} | https://scratch.mit.edu/projects/673753313/`)
+});
+
+setInterval(() => {
+  client.user.setActivity(`${client.ws.ping} | https://scratch.mit.edu/projects/673753313/`)
+},1000 * 60 * 5)
 
 client.on("messageCreate", (message) => {
   if (message.content === "!scratchauth" && message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
