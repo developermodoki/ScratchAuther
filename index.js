@@ -13,7 +13,7 @@ require("dotenv").config();
 
 client.on("ready", bot => {
   console.log(`Logged in as ${client.user.tag}.`);
-  setTimeout(() => bot.user.setActivity(`${client.ws.ping}ms | Node.js ${process.version}`, 5000);
+  setTimeout(() => bot.user.setActivity(`${client.ws.ping}ms | Node.js ${process.version}`, 5000));
 });
 
 setInterval(() => client.user.setActivity(`${client.ws.ping}ms | Node.js ${process.version}`), 1000 * 60 * 5);
