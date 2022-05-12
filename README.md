@@ -1,5 +1,8 @@
 # ScratchAuther
-ScratchアカウントとDiscordアカウントを紐つけることができます。
+ScratchアカウントとDiscordアカウントを紐つけることができます。  
+
+**注意:このフォークされたリポジトリのソースコードは、Scratch(JP)での運用に特化するようにカスタマイズされています。**  
+(Scratch(JP)は[こちら](https://dsc.gg/Scratchjp))
 ## Quick Usage
 
 1. Clone
