@@ -117,7 +117,8 @@ client.on("interactionCreate", async (i) => {
                     title: "認証成功",
                     fields: log
                   }]
-                })
+                });
+                collector.stop();
               }
             } else {
               mci.followUp("まだキャッシュに反映されていないか、設定されていないようです...30秒後にもう一度お試しください。");
