@@ -1,7 +1,7 @@
 const { Client, Intents, Permissions, MessageButton, MessageEmbed, MessageActionRow, MessageCollector, Message } = require("discord.js");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES], partials: ["CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION", "USER"], restTimeOffset: 50 });
 const { default: axios } = require("axios");
-const { JSDOM } = (require("jsdom"));
+const { randomBytes } = require("crypto");
 const config = require("./config");
 
 // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -60,7 +60,7 @@ client.on("interactionCreate", async (i) => {
                 .setStyle("SUCCESS")
                 .setLabel("プロジェクトに入力しました");
               uuid = `${getRandomInt(984932532).toString()}`;
-              am.edit({ content: "ユーザー名の確認ができました。\n次に、下のコード\n(`XXXXXXXXX`形式)\nを、プロフィールの「私について」 に貼り付けてください。）\n入力してから、下のボタンを押してください。\nなお、**New Scratcherは認証できませんのでご注意ください。**", embeds: [{
+              am.edit({ content: "ユーザー名の確認ができました。\n次に、下のコード\n(`XXXXXXXXX`形式)\nを、https://scratch.mit.edu/projects/673753313/ に入力してください。\n入力してから、下のボタンを押してください。\nなお、**New Scratcherは認証できませんのでご注意ください。**", embeds: [{
                 description: `\`\`\`\n${uuid}\n\`\`\``
               }], components: [new MessageActionRow().addComponents(but)] });
               
@@ -81,16 +81,11 @@ client.on("interactionCreate", async (i) => {
           collector.on("collect", async (mci) => {
             await mci.deferReply();
             const { data } = await axios({
-              url: `https://api.scratch.mit.edu/users/${scratchName}/`,
+              url: `https://clouddata.scratch.mit.edu/logs?projectid=673753313&limit=40&offset=0`,
               responseType: "json",
               method: "get"
             });
-            const scratcherStatus = await (async () => {
-              const getScratchProfile = (await axios.get(`https://scratch.mit.edu/users/${scratchName}/`)).data;
-              const {window} = (new JSDOM(getScratchProfile)).window;
-              return (window.document.querySelector(".group").textContent.trim());
-            })();
-            if (scratcherStatus === "Scratcher" && data.bio.indexOf(uuid) !== -1) {
+            if (data.find(element => element.user === scratchName && element.value === uuid)) {
               mci.followUp("認証が完了しました！");
               for (const role of config.verifiedRoles) {
                 i.member.roles.add(role);
