@@ -18,6 +18,11 @@ client.on("ready", bot => {
 
 setInterval(() => client.user.setActivity(`${client.ws.ping}ms | Node.js ${process.version}`), 1000 * 60 * 5);
 
+client.on("guildMemberAdd", member => {
+  member.roles.add(process.env.SCRATCHJP_MEMBERROLE_ID)
+              .catch(e => console.log(e));
+});
+
 client.on("messageCreate", (message) => {
   if (message.content === "!scratchauth" && message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
     const embed = new MessageEmbed()
