@@ -5,7 +5,7 @@ const { randomBytes, webcrypto } = require("crypto");
 const config = require("./config");
 
 const randomValue = () => {
-  const value = webcrypto.getRandomValues(new Uint16Array(2)).toString().replaceAll(",","");
+  const value = webcrypto.getRandomValues(new Uint8Array(3)).toString().replaceAll(",","");
   return value;
 }
 
