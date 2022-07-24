@@ -1,11 +1,11 @@
 const { Client, Intents, Permissions, MessageButton, MessageEmbed, MessageActionRow, MessageCollector, Message } = require("discord.js");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES], partials: ["CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION", "USER"], restTimeOffset: 50 });
 const { default: axios } = require("axios");
-const { randomBytes, getRandomValues } = require("crypto");
+const { randomBytes, webcrypto } = require("crypto");
 const config = require("./config");
 
 const randomValue = () => {
-  const value = getRandomValues(new Uint16Array(2)).toString().replaceAll(",","");
+  const value = webcrypto.getRandomValues(new Uint16Array(2)).toString().replaceAll(",","");
   return value;
 }
 
