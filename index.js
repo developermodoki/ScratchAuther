@@ -72,7 +72,8 @@ client.on("interactionCreate", async (i) => {
               collector.stop();
               return handleButton(am);
             })
-            .catch(() => {
+            .catch((e) => {
+              console.log(e);
               return am.edit("Scratchユーザーが存在しません。");
             })
         })
