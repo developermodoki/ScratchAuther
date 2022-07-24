@@ -1,12 +1,12 @@
 const { Client, Intents, Permissions, MessageButton, MessageEmbed, MessageActionRow, MessageCollector, Message } = require("discord.js");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES], partials: ["CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION", "USER"], restTimeOffset: 50 });
 const { default: axios } = require("axios");
-const { randomBytes } = require("crypto");
+const { randomBytes, getRandomValues } = require("crypto");
 const config = require("./config");
 
-// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+const randomValue = () => {
+  const value = getRandomValues(new Uint16Array(2)).toString().replaceAll(",","");
+  return value;
 }
 
 require("dotenv").config();
@@ -64,7 +64,7 @@ client.on("interactionCreate", async (i) => {
                 .setCustomId("auth")
                 .setStyle("SUCCESS")
                 .setLabel("プロジェクトに入力しました");
-              uuid = `${getRandomInt(984932532).toString()}`;
+              uuid = `${randomValue()}`;
               am.edit({ content: "ユーザー名の確認ができました。\n次に、下のコード\n(`XXXXXXXXX`形式)\nを、https://scratch.mit.edu/projects/673753313/ に入力してください。\n入力してから、下のボタンを押してください。\nなお、**New Scratcherは認証できませんのでご注意ください。**", embeds: [{
                 description: `\`\`\`\n${uuid}\n\`\`\``
               }], components: [new MessageActionRow().addComponents(but)] });
