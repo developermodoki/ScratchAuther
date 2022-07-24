@@ -4,9 +4,9 @@ const { default: axios } = require("axios");
 const { randomBytes, webcrypto } = require("crypto");
 const config = require("./config");
 
+// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 const randomValue = () => {
-  const value = webcrypto.getRandomValues(new Uint8Array(3)).toString().replaceAll(",","");
-  return value;
+  return Math.floor(Math.random() * max);
 }
 
 require("dotenv").config();
