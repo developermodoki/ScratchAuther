@@ -91,7 +91,7 @@ client.on("interactionCreate", async (i) => {
               responseType: "json",
               method: "get"
             });
-            if (data.find(element => element.user === scratchName && element.value === uuid)) {
+            if (data.find(element => element.user === scratchName && element.value === random)) {
               mci.followUp("認証が完了しました！");
               for (const role of config.verifiedRoles) {
                 i.member.roles.add(role);
