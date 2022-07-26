@@ -5,7 +5,7 @@ const { randomBytes, webcrypto } = require("crypto");
 const config = require("./config");
 
 // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-const randomValue = () => {
+const randomValue = (max) => {
   return Math.floor(Math.random() * max);
 }
 
@@ -50,7 +50,7 @@ client.on("interactionCreate", async (i) => {
          */
         const collector = msg.channel.createMessageCollector({ filter: (m) => m.author.id === i.user.id });
         let scratchName = "";
-        let uuid = "";
+        let random = "";
         collector.on("collect", async (m) => {
           const am = await m.channel.send("ユーザー名を確認中です。");
           axios({
@@ -64,9 +64,9 @@ client.on("interactionCreate", async (i) => {
                 .setCustomId("auth")
                 .setStyle("SUCCESS")
                 .setLabel("プロジェクトに入力しました");
-              uuid = `${randomValue()}`;
+              random = `${randomValue(984932532)}`;
               am.edit({ content: "ユーザー名の確認ができました。\n次に、下のコード\n(`XXXXXXXXX`形式)\nを、https://scratch.mit.edu/projects/673753313/ に入力してください。\n入力してから、下のボタンを押してください。\nなお、**New Scratcherは認証できませんのでご注意ください。**", embeds: [{
-                description: `\`\`\`\n${uuid}\n\`\`\``
+                description: `\`\`\`\n${random}\n\`\`\``
               }], components: [new MessageActionRow().addComponents(but)] });
               
               collector.stop();
