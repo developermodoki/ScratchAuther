@@ -116,7 +116,7 @@ client.on("interactionCreate", async (i) => {
                 });
                 if (config.logging.includes("uuid")) log.push({
                   name: "検証用ID",
-                  value: uuid
+                  value: random
                 });
                 client.channels.cache.get(config.loggingChannel).send({
                   embeds: [{
