@@ -7,8 +7,13 @@ ScratchアカウントとDiscordアカウントを紐つけることができま
 
 1. Clone
 
+原型をクローンする場合は、  
 ```sh
 git clone https://github.com/waki285/ScratchAuther.git
+```
+ScratchJPカスタマイズ型をクローンする場合は、
+```sh
+git clone https://github.com/developermodoki/ScratchAuther.git
 ```
 
 2. Edit `config.js`
